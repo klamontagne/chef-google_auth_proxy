@@ -1,0 +1,21 @@
+
+description     "Google Auth Proxy instance"
+author          "Kevin Lamontagne <kevin@demarque.com>"
+
+start on runlevel [2345]
+stop on shutdown
+
+respawn
+
+console log
+
+env google_auth_client_id=<%= @client_id %>
+env google_auth_secret=<%= @client_secret %>
+
+setuid <%= @user %>
+exec /opt/go/bin/google_auth_proxy 	-cookie-domain="<%= @cookie_domain %>" \
+					-cookie-secret="<%= @cookie_secret %>" \
+					-google-apps-domain="<%= @google_apps_domain %>" \
+					-http-address="<%= @listen_address %>" \
+					-redirect-url="<%= @redirect_url%>" \
+					-upstream="<%= @upstreams %>"     
