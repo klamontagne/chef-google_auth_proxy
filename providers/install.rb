@@ -1,4 +1,12 @@
+require 'securerandom'
+
 action :run do
+
+  #Create cookie secret
+  if (!node[:google_auth][:cookie_secret][new_resource.name])
+    node.set[:google_auth][:cookie_secret][new_resource.name] = SecureRandom.base64 34
+    node.save
+  end
 
   service_name = "google_auth_proxy_#{new_resource.name}"
 
@@ -13,7 +21,7 @@ action :run do
       :client_id => new_resource.client_id,
       :client_secret => new_resource.client_secret,
       :cookie_domain => new_resource.cookie_domain,
-      :cookie_secret => new_resource.cookie_secret,
+      :cookie_secret => node[:google_auth][:cookie_secret][new_resource.name],
       :user => new_resource.user,
       :google_apps_domain => new_resource.google_apps_domain,
       :listen_address => new_resource.listen_address,
