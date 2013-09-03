@@ -3,8 +3,8 @@ require 'securerandom'
 action :run do
 
   #Create cookie secret
-  if (!node[:google_auth][:cookie_secret][new_resource.name])
-    node.set[:google_auth][:cookie_secret][new_resource.name] = SecureRandom.base64 34
+  if (!node.attribute? "google_auth.cookie_secret.#{new_resource.name}" )
+    node.set_unless[:google_auth][:cookie_secret][new_resource.name] = SecureRandom.base64 34
     node.save
   end
 
