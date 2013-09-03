@@ -12,7 +12,8 @@ action :run do
 
   golang_package "github.com/klamontagne/google_auth_proxy"
   
-  template "/etc/init/#{service_name}.conf" do
+  template "#{service_name}-upstart" do
+    path "/etc/init/#{service_name}.conf"
     source "upstart.conf.erb"
     mode 0600
     owner "root"
@@ -33,6 +34,7 @@ action :run do
   service service_name do
     provider Chef::Provider::Service::Upstart
     action [ :enable, :start ]
+    subscribes :restart, "template[#{service_name}-upstart]", :delayed
   end
 
 end
