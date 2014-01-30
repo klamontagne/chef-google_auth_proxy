@@ -10,7 +10,7 @@ action :run do
 
   service_name = "google_auth_proxy_#{new_resource.name}"
 
-  golang_package "github.com/klamontagne/google_auth_proxy"
+  golang_package "github.com/bitly/google_auth_proxy"
   
   template "#{service_name}-upstart" do
     path "/etc/init/#{service_name}.conf"
