@@ -5,7 +5,7 @@ action :run do
   #Create cookie secret
   if (!node.attribute? "google_auth.cookie_secret.#{new_resource.name}" )
     node.set_unless[:google_auth][:cookie_secret][new_resource.name] = SecureRandom.base64 34
-    node.save
+    node.save unless Chef::Config[:solo]
   end
 
   service_name = "google_auth_proxy_#{new_resource.name}"
