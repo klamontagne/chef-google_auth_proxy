@@ -6,5 +6,6 @@ description      'Installs/Configures google_auth_proxy'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.2.1'
 
+supports 'ubuntu', '>= 12.04'
 depends          'golang'
 
