@@ -14,3 +14,13 @@ suites:
       - recipe[golang]
       - recipe[install::default]
     attributes:
+
+  - name: remote
+    run_list:
+      - recipe[golang]
+      - recipe[install::remote_s3]
+    attributes:
+      'google_auth_proxy':
+        # Override this via the environment or via .kitchen.local.yml
+        'source': <%= ENV['GOOGLE_AUTH_PROXY_BIN_URL'] %>
+        'checksum': <%= ENV['GOOGLE_AUTH_PROXY_CHECKSUM'] %>
