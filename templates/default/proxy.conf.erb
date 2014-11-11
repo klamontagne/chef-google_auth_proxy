@@ -1,0 +1,26 @@
+http_address = "<%= @listen_address %>"
+redirect_url = "<%= @redirect_url %>"
+
+upstreams = [
+<% @upstreams.each do |u| %>
+  "<%= u %>"
+<% end %>
+]
+pass_basic_auth = true
+
+google_apps_domains = [
+<% @google_apps_domains.each do |d| %>
+  "<%= d %>"
+<% end %>
+]
+
+client_id = "<%= @client_id %>"
+client_secret = "<%= @client_secret %>"
+
+# authenticated_emails_file = ""
+# htpasswd_file = ""
+
+cookie_secret = "<%= @cookie_secret %>"
+cookie_domain = "<%= @cookie_domain %>"
+cookie_expire = "168h"
+cookie_https_only = true
