@@ -2,11 +2,13 @@ require 'securerandom'
 
 action :run do
 
+  use_inline_resources
+
   service_name = new_resource.name
 
   # Create cookie secret
   unless node.attribute? "google_auth.cookie_secret.#{service_name}"
-    node.set_unless[:google_auth][:cookie_secret][service_name] = SecureRandom.base64 34
+    node.set_unless['google_auth']['cookie_secret'][service_name] = SecureRandom.base64 34
     node.save unless Chef::Config[:solo]
   end
 
@@ -28,7 +30,7 @@ action :run do
       client_id: new_resource.client_id,
       client_secret: new_resource.client_secret,
       cookie_domain: new_resource.cookie_domain,
-      cookie_secret: node[:google_auth][:cookie_secret][service_name],
+      cookie_secret: node['google_auth']['cookie_secret'][service_name],
       google_apps_domains: new_resource.google_apps_domains,
       listen_address: new_resource.listen_address,
       redirect_url: new_resource.redirect_url,
