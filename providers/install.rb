@@ -2,8 +2,6 @@ require 'securerandom'
 
 action :run do
 
-  use_inline_resources
-
   service_name = new_resource.name
 
   # Create cookie secret
@@ -12,12 +10,25 @@ action :run do
     node.save unless Chef::Config[:solo]
   end
 
-  golang_package 'github.com/bitly/google_auth_proxy'
-
   directory '/etc/google_auth_proxy' do
     owner 'root'
     group 'root'
     mode 0755
+  end
+
+  pkg_url = "https://github.com/bitly/google_auth_proxy/releases/download/v#{new_resource.pkg_version}/google_auth_proxy-#{new_resource.pkg_version}.linux-amd64.go1.3.tar.gz"
+  file_name = "/tmp/google_auth_proxy.tar.gz"
+  remote_file file_name do
+    source pkg_url
+  end
+
+  bash "install package" do
+    code <<-EOH
+    cd /tmp
+    tar xfz #{file_name}
+    mv /tmp/google_auth_proxy-#{new_resource.pkg_version}.linux-amd64.go1.3/google_auth_proxy #{new_resource.bin_path}/
+    EOH
+    creates "#{new_resource.bin_path}/google_auth_proxy"
   end
 
   template "/etc/google_auth_proxy/#{service_name}.conf" do
@@ -47,7 +58,8 @@ action :run do
     mode 0644
     variables(
       user: new_resource.user,
-      service_name: service_name
+      service_name: service_name,
+      bin_path: new_resource.bin_path
     )
   end
 

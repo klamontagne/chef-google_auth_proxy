@@ -15,3 +15,6 @@ attribute :listen_address, kind_of: String, default: '127.0.0.1:4180'
 attribute :redirect_url, kind_of: String
 
 attribute :upstreams, kind_of: Array, default: '127.0.0.1:4181'
+
+attribute :pkg_version, kind_of: String, default: '1.0'
+attribute :bin_path, kind_of: String, default: '/etc/google_auth_proxy'
