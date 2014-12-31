@@ -2,7 +2,7 @@ require 'securerandom'
 
 action :run do
 
-  use_inline_resources
+  use_inline_resources if defined?(use_inline_resources)
 
   service_name = new_resource.name
 
