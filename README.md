@@ -6,7 +6,7 @@ This cookbook sets up a [Google Auth Proxy](https://github.com/bitly/google_auth
 Dependencies
 ------------
 
-This cookbook needs `golang` and **must have Go version 1.1.1+**
+This cookbook requires `golang` (for source installs only) and **must have Go version 1.1.1+**
 
 It only supports Upstart as a service provider at the moment.
 

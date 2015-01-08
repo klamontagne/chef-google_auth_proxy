@@ -8,4 +8,4 @@ respawn
 console log
 
 setuid <%= @user %>
-exec <%= @bin_path %>/google_auth_proxy -config=/etc/google_auth_proxy/<%= @service_name %>.conf
+exec <%= node['google_auth_proxy']['bin_path'] %>/google_auth_proxy -config=/etc/google_auth_proxy/<%= @service_name %>.conf
