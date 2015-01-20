@@ -34,15 +34,16 @@ action :run do
     remote_file file_name  do
       source node['google_auth_proxy']['binary_url']
       checksum node['google_auth_proxy']['binary_checksum']
+      notifies :run, 'bash[install google_auth_proxy binary]', :immediate
     end
 
     bash 'install google_auth_proxy binary' do
+      action :nothing
       cwd Chef::Config[:file_cache_path]
       code <<-EOH
       tar xzf #{file_name}
       install -m 0755 -o root -g root #{node['google_auth_proxy']['archive_path']} #{node['google_auth_proxy']['bin_path']}
       EOH
-      creates "#{node['google_auth_proxy']['bin_path']}/google_auth_proxy"
     end
 
   else
@@ -83,6 +84,10 @@ action :run do
   service "google_auth_proxy_#{service_name}" do
     provider Chef::Provider::Service::Upstart
     action [:enable, :start]
-    subscribes :restart, "template[#{service_name}-upstart]", :delayed
+    supports status: true, restart: false, reload: false
+    if node['google_auth_proxy']['auto_restart']
+      subscribes :restart, "template[#{service_name}-upstart]", :delayed
+      subscribes :restart, "template[/etc/google_auth_proxy/#{service_name}.conf]", :delayed
+    end
   end
 end
