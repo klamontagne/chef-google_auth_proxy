@@ -23,6 +23,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       go: {
         version: '1.3'
       },
+      google_auth: {
+        cookie_secret: {
+          :'my-app' => 'mysecret'
+        }
+      },
       google_auth_proxy: {
         # install_method: 'source'
         install_method: 'binary',
