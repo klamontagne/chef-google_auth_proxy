@@ -9,3 +9,10 @@ default['google_auth_proxy']['binary_url'] = 'https://github.com/bitly/google_au
 default['google_auth_proxy']['source_golange_package'] = 'github.com/bitly/google_auth_proxy'
 
 default['google_auth_proxy']['auto_restart'] = true
+
+default['google_auth_proxy']['cookie_expire'] = '168h'
+default['google_auth_proxy']['cookie_https_only'] = true
+default['google_auth_proxy']['cookie_httponly'] = true
+default['google_auth_proxy']['pass_basic_auth'] = true
+default['google_auth_proxy']['authenticated_emails_file'] = ''
+default['google_auth_proxy']['htpasswd_file'] = ''

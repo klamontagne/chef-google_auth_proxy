@@ -61,10 +61,16 @@ action :run do
       client_secret: new_resource.client_secret,
       cookie_domain: new_resource.cookie_domain,
       cookie_secret: node['google_auth']['cookie_secret'][service_name],
+      cookie_expire: node['google_auth_proxy']['cookie_expire'],
+      cookie_https_only: node['google_auth_proxy']['cookie_https_only'],
+      cookie_httponly: node['google_auth_proxy']['cookie_httponly'],
       google_apps_domains: new_resource.google_apps_domains,
       listen_address: new_resource.listen_address,
       redirect_url: new_resource.redirect_url,
-      upstreams: new_resource.upstreams
+      upstreams: new_resource.upstreams,
+      pass_basic_auth: node['google_auth_proxy']['pass_basic_auth'],
+      authenticated_emails_file: node['google_auth_proxy']['authenticated_emails_file'],
+      htpasswd_file: node['google_auth_proxy']['htpasswd_file']
     )
   end
 
