@@ -2,9 +2,7 @@ http_address = "<%= @listen_address %>"
 redirect_url = "<%= @redirect_url %>"
 
 upstreams = [
-<% @upstreams.each do |u| %>
-  "<%= u %>"
-<% end %>
+  <%= @upstreams.map{|upstream| "\"#{upstream}\""}.join(",\n  ") %>
 ]
 pass_basic_auth = <%= @pass_basic_auth %> 
 
