@@ -13,7 +13,6 @@ It only supports Upstart as a service provider at the moment.
 How to use the provider
 -----------------------
 ```ruby
-include_recipe "google_auth_proxy"
 # Proxy definition example
 # Get your own keys at https://code.google.com/apis/console
 google_auth_proxy_install "my-app" do
