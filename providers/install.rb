@@ -88,7 +88,7 @@ action :run do
   end
 
   service "google_auth_proxy_#{service_name}" do
-    provider node['google_auth_proxy']['service_provider']
+    provider Chef::Provider::Service::Systemd
     action [:enable, :start]
     supports status: true, restart: false, reload: false
     if node['google_auth_proxy']['auto_restart']
