@@ -17,4 +17,4 @@ default['google_auth_proxy']['pass_basic_auth'] = true
 default['google_auth_proxy']['authenticated_emails_file'] = ''
 default['google_auth_proxy']['htpasswd_file'] = ''
 
-default['google_auth_proxy']['service_provider'] = Chef::Provider::Service::Upstart
+default['google_auth_proxy']['systemd'] = false

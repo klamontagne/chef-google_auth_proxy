@@ -74,21 +74,35 @@ action :run do
     )
   end
 
-  template "#{service_name}-upstart" do
-    path "/etc/init/google_auth_proxy_#{service_name}.conf"
-    source 'upstart.conf.erb'
-    cookbook 'google_auth_proxy'
-    owner 'root'
-    group 'root'
-    mode 0644
-    variables(
-      user: new_resource.user,
-      service_name: service_name
-    )
+  if node['google_auth_proxy']['systemd']
+    template "" do |variable|
+      path "/etc/systemd/system/google_auth_proxy_#{service_name}.service"
+      source 'systemd.conf.erb'
+      cookbook 'google_auth_proxy'
+      owner 'root'
+      group 'root'
+      mode 0644
+      variables(
+        user: new_resource.user,
+        service_name: service_name
+      )
+    end
+  else
+    template "#{service_name}-upstart" do
+      path "/etc/init/google_auth_proxy_#{service_name}.conf"
+      source 'upstart.conf.erb'
+      cookbook 'google_auth_proxy'
+      owner 'root'
+      group 'root'
+      mode 0644
+      variables(
+        user: new_resource.user,
+        service_name: service_name
+      )
+    end
   end
 
   service "google_auth_proxy_#{service_name}" do
-    provider Chef::Provider::Service::Systemd
     action [:enable, :start]
     supports status: true, restart: false, reload: false
     if node['google_auth_proxy']['auto_restart']

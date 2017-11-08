@@ -1,0 +1,13 @@
+[Unit]
+Description=Google Auth Proxy instance
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=<%= @user %>
+ExecStart=<%= node['google_auth_proxy']['bin_path'] %>/google_auth_proxy -config=/etc/google_auth_proxy/<%= @service_name %>.conf
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
