@@ -7,7 +7,7 @@ action :run do
 
   # Create cookie secret
   unless node.attribute? "google_auth.cookie_secret.#{service_name}"
-    node.set_unless['google_auth']['cookie_secret'][service_name] = SecureRandom.base64 34
+    node.default_unless['google_auth']['cookie_secret'][service_name] = SecureRandom.base64 34
     node.save unless Chef::Config[:solo]
   end
 
