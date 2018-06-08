@@ -5,6 +5,7 @@ upstreams = [
   <%= @upstreams.map{|upstream| "\"#{upstream}\""}.join(",\n  ") %>
 ]
 pass_basic_auth = <%= @pass_basic_auth %> 
+basic_auth_password = <%= @basic_auth_password %>
 
 google_apps_domains = [
 <% @google_apps_domains.each do |d| %>
