@@ -15,6 +15,7 @@ default['google_auth_proxy']['cookie_https_only'] = true
 default['google_auth_proxy']['cookie_httponly'] = true
 default['google_auth_proxy']['pass_basic_auth'] = true
 default['google_auth_proxy']['basic_auth_password'] = 'password'
+default['google_auth_proxy']['pass_user_headers'] = true
 default['google_auth_proxy']['authenticated_emails_file'] = ''
 default['google_auth_proxy']['htpasswd_file'] = ''
 
