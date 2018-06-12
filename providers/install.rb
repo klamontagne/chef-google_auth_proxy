@@ -69,6 +69,8 @@ action :run do
       redirect_url: new_resource.redirect_url,
       upstreams: new_resource.upstreams,
       pass_basic_auth: node['google_auth_proxy']['pass_basic_auth'],
+      basic_auth_password: node['google_auth_proxy']['basic_auth_password'],
+      pass_user_headers: node['google_auth_proxy']['pass_user_headers'],
       authenticated_emails_file: node['google_auth_proxy']['authenticated_emails_file'],
       htpasswd_file: node['google_auth_proxy']['htpasswd_file']
     )

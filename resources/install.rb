@@ -20,5 +20,7 @@ attribute :redirect_url, kind_of: String
 attribute :upstreams, kind_of: Array, default: ['127.0.0.1:4181']
 
 attribute :pass_basic_auth, kind_of: [TrueClass, FalseClass], default: true
+attribute :pass_user_headers, kind_of: [TrueClass, FalseClass], default: true
+attribute :basic_auth_password, kind_of: String, default: ''
 attribute :authenticated_emails_file, kind_of: String
 attribute :htpasswd_file, kind_of: String
