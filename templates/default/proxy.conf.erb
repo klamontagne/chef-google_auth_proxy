@@ -9,7 +9,7 @@ pass_basic_auth = <%= @pass_basic_auth %>
 pass_user_headers = <%= @pass_user_headers %> 
 
 <% unless @basic_auth_password.empty? -%>
-basic_auth_password = <%= @basic_auth_password %>
+basic_auth_password = "<%= @basic_auth_password %>"
 <% end -%>
 
 
